@@ -42,6 +42,10 @@ public class Main {
         System.out.println(((Node) myList.get(3)).getData());
         myList = myList.remove(3);
         System.out.println(myList);
+       // System.out.println(myList.size());
+        myList = myList.set(2, "___000___");
+        System.out.println(myList);
+        System.out.println(myList.indexOf(6));
 
     }
 }

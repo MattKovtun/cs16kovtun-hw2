@@ -3,6 +3,10 @@ package ua.edu.ucu.collections.immutable;
 public class ImmutableLinkedList implements ImmutableList {
     protected Node head;
     protected int listLength;
+    protected ImmutableLinkedList myNewList;
+    protected Node finCurr;
+    protected int curPos;
+    protected Node current;
 
     public ImmutableLinkedList() {
         head = new Node(null);
@@ -26,16 +30,12 @@ public class ImmutableLinkedList implements ImmutableList {
     }
 
 
-
-    @Override
-    public ImmutableList add(int index, Object e) {
+    public void preprocessing(int index) {
         checkIndex(index);
-        ImmutableLinkedList myNewList = new ImmutableLinkedList();
-
-        Node tmp = new Node(e);
-        int curPos = 0;
-        Node current = head;
-        Node finCurr = myNewList.head;
+        myNewList = new ImmutableLinkedList();
+        curPos = 0;
+        current = head;
+        finCurr = myNewList.head;
 
         while (curPos != index && current.getNext() != null) {
             Node t = current.getNext();
@@ -45,10 +45,10 @@ public class ImmutableLinkedList implements ImmutableList {
             finCurr = finCurr.getNext();
             curPos++;
         }
-        tmp.setNext(finCurr.getNext());
-        finCurr.setNext(tmp);
-        finCurr = finCurr.getNext();
 
+    }
+
+    public void postprocessing() {
         while (curPos != listLength && current.getNext() != null) {
             Node t = current.getNext();
             Node finT = new Node(t.getData(), t.getNext());
@@ -57,40 +57,31 @@ public class ImmutableLinkedList implements ImmutableList {
             finCurr = finCurr.getNext();
             curPos++;
         }
-        listLength++;
+    }
 
+
+    @Override
+    public ImmutableList add(int index, Object e) {
+        preprocessing(index);
+        Node tmp = new Node(e);
+        tmp.setNext(finCurr.getNext());
+        finCurr.setNext(tmp);
+        finCurr = finCurr.getNext();
+        postprocessing();
+        listLength++;
         myNewList.listLength = listLength;
         return myNewList;
     }
 
     @Override
     public ImmutableList addAll(int index, Object[] c) {
-        checkIndex(index);
-        ImmutableLinkedList myNewList = new ImmutableLinkedList();
-        int curPos = 0;
-        Node current = head;
-        Node finCurr = myNewList.head;
-        while (curPos != index && current.getNext() != null) {
-            Node t = current.getNext();
-            Node finT = new Node(t.getData(), t.getNext());
-            current = t;
-            finCurr.setNext(finT);
-            finCurr = finCurr.getNext();
-            curPos ++;
-        }
-        for (int i = 0; i < c.length; ++ i ) {
+        preprocessing(index);
+        for (int i = 0; i < c.length; ++i) {
             Node e = new Node(c[i]);
             finCurr.setNext(e);
             finCurr = finCurr.getNext();
         }
-        while (curPos != listLength && current.getNext() != null) {
-            Node t = current.getNext();
-            Node finT = new Node(t.getData(), t.getNext());
-            current = t;
-            finCurr.setNext(finT);
-            finCurr = finCurr.getNext();
-            curPos++;
-        }
+        postprocessing();
 
         myNewList.listLength = listLength;
         myNewList.listLength += c.length;
@@ -105,68 +96,60 @@ public class ImmutableLinkedList implements ImmutableList {
 
     @Override
     public Object get(int index) {
-        checkIndex(index);
-        Node current = head;
-        int curPos = 0;
-        while (curPos != index + 1) {
-            current = current.getNext();
-            curPos ++;
-        }
+        preprocessing(index + 1);
         return current;
     }
 
     @Override
     public ImmutableList remove(int index) {
-        checkIndex(index);
-        ImmutableLinkedList myNewList = new ImmutableLinkedList();
-
-        int curPos = 0;
-        Node current = head;
-        Node finCurr = myNewList.head;
-
-        while (curPos != index && current.getNext() != null) {
-            Node t = current.getNext();
-            Node finT = new Node(t.getData(), t.getNext());
-            current = t;
-            finCurr.setNext(finT);
-            finCurr = finCurr.getNext();
-            curPos++;
-        }
+        preprocessing(index);
         current = current.getNext();
-
-        while (curPos != listLength && current.getNext() != null) {
-            Node t = current.getNext();
-            Node finT = new Node(t.getData(), t.getNext());
-            current = t;
-            finCurr.setNext(finT);
-            finCurr = finCurr.getNext();
-            curPos++;
-        }
+        postprocessing();
+        myNewList.listLength = listLength - 1;
         return myNewList;
     }
 
     @Override
     public ImmutableList set(int index, Object e) {
-        return null;
+        preprocessing(index + 1);
+        Node tmp = new Node(e);
+        finCurr.setData(tmp.getData());
+        postprocessing();
+        myNewList.listLength = listLength;
+        return myNewList;
     }
 
     @Override
     public int indexOf(Object e) {
-        return 0;
+        current = head;
+        int pos = 0;
+        Node tmp = new Node(e);
+        while (current.getNext() != null) {
+            if (current.getData() == tmp.getData()) {
+                return pos - 1;
+            }
+            pos++;
+            current = current.getNext();
+        }
+        return -1;
     }
 
     @Override
     public int size() {
-        return 0;
+        return listLength;
     }
 
     @Override
     public ImmutableList clear() {
-        return null;
+        myNewList = new ImmutableLinkedList();
+        return myNewList;
     }
 
     @Override
     public boolean isEmpty() {
+        if (listLength == 0) {
+            return true;
+        }
         return false;
     }
 
