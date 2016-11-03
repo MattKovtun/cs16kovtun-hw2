@@ -3,7 +3,7 @@ package ua.edu.ucu.collections.immutable;
 /**
  * Created by matt on 10/31/16.
  */
-public class Node {
+public class Node implements Cloneable {
     Node next;          // reference to the next node in the chain, or null if there isn't one.
     Object data;
 
@@ -20,6 +20,9 @@ public class Node {
         this.data = data;
     }
 
+    public Node clone() {
+        return new Node(this.data);
+    }
     // these methods should be self-explanatory
     public Object getData() {
         return data;

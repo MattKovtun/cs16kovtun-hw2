@@ -1,6 +1,6 @@
 package ua.edu.ucu.collections.immutable;
 
-public class ImmutableLinkedList implements ImmutableList {
+public class ImmutableLinkedList implements ImmutableList{
     protected Node head;
     protected int listLength;
     protected ImmutableLinkedList myNewList;
@@ -22,10 +22,10 @@ public class ImmutableLinkedList implements ImmutableList {
     @Override
     public ImmutableList add(Object e) {
         return add(listLength, e);
-    }
+    }    // addLast
 
 
-    public ImmutableList addToTheStart(Object e) {
+    public ImmutableList addFirst(Object e) {
         return add(0, e);
     }
 
@@ -100,6 +100,16 @@ public class ImmutableLinkedList implements ImmutableList {
         return current;
     }
 
+    public Object getLast() {
+        return get(listLength);
+    }
+
+
+    public Object getFirst() {
+        return get(0);
+    }
+
+
     @Override
     public ImmutableList remove(int index) {
         preprocessing(index);
@@ -108,6 +118,17 @@ public class ImmutableLinkedList implements ImmutableList {
         myNewList.listLength = listLength - 1;
         return myNewList;
     }
+
+
+    public ImmutableList removeFirst() {
+        return remove(0);
+    }
+
+
+    public ImmutableList removeLast() {
+        return remove(listLength);
+    }
+
 
     @Override
     public ImmutableList set(int index, Object e) {

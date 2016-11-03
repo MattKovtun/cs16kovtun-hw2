@@ -1,5 +1,7 @@
 package ua.edu.ucu.collections.immutable;
 
+import java.util.Arrays;
+
 /**
  * Created by matt on 10/31/16.
  */
@@ -46,6 +48,9 @@ public class Main {
         myList = myList.set(2, "___000___");
         System.out.println(myList);
         System.out.println(myList.indexOf(6));
-
+        //int[] a = new int[]{1,2,3};
+       // int[] b = new int[5];
+     //   System.arraycopy(a, 0, b, 0, 3);
+   //     System.out.println(Arrays.toString(b));
     }
 }
