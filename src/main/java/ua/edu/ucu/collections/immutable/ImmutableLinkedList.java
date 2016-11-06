@@ -178,9 +178,10 @@ public class ImmutableLinkedList implements ImmutableList{
     public Object[] toArray() {
         Object[] n = new Object[listLength];
         int i = 0;
-        while (curPos != listLength && current.getNext() != null) {
-            n[i] = current.getData();
+        current = head;
+        while (current.getNext() != null) {
             current = current.getNext();
+            n[i] = current.getData();
             ++i;
         }
         return n;

@@ -36,20 +36,31 @@ public class ImmutableArrayList implements ImmutableList{
         myNewList.myList = new Object[myList.length];
         System.arraycopy(myList, 0, myNewList.myList, 0, myList.length);
         myNewList.size = size;
-        myNewList.myList[size] = e;
+        myNewList.myList[index] = e;
         myNewList.size++;
         return myNewList;
     }
 
     @Override
     public ImmutableList addAll(Object[] c) {
-        return null;
+        return addAll(size, c);
     }
 
     @Override
     public ImmutableList addAll(int index, Object[] c) {
+        resize();
+        checkIndex(index);
+        ImmutableArrayList myNewList = new ImmutableArrayList();
+        myNewList.myList = new Object[myList.length];
+        System.arraycopy(myList, 0, myNewList.myList, 0, myList.length);
+        myNewList.size = size;
+        for (int i = 0; i < c.length; ++i) {
+            myNewList.myList[index] = c;
+            index++;
+            myNewList.size++;
+        }
 
-        return null;
+        return myNewList;
     }
 
     @Override
@@ -113,7 +124,8 @@ public class ImmutableArrayList implements ImmutableList{
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+
+        return myList;
     }
 
     public String toString() {

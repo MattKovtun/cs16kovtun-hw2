@@ -1,6 +1,7 @@
 package ua.edu.ucu.collections.immutable;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Created by matt on 10/31/16.
@@ -47,7 +48,16 @@ public class Main {
        // System.out.println(myList.size());
         myList = myList.set(2, "___000___");
         System.out.println(myList);
-        System.out.println(myList.indexOf(6));
+        Object[] n = myList.toArray();
+
+
+        ImmutableLinkedList List = new ImmutableLinkedList();
+        testArr = new Integer[]{5, 6, 7};
+        List = (ImmutableLinkedList) List.addAll(testArr);
+        System.out.println(List.size());
+        Object[] q = List.toArray();
+        System.out.println(Arrays.toString(q));
+        //System.out.println(myList.indexOf(6));
         //int[] a = new int[]{1,2,3};
        // int[] b = new int[5];
      //   System.arraycopy(a, 0, b, 0, 3);

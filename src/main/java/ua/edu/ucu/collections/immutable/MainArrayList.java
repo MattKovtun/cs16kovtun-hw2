@@ -12,7 +12,7 @@ public class MainArrayList {
         a.add(1);
         a = (ImmutableArrayList) a.add(1);
         a = (ImmutableArrayList) a.add(2);
-        a = (ImmutableArrayList) a.add(3);
+        a = (ImmutableArrayList) a.add(5, 3);
         System.out.println(a);
         a = (ImmutableArrayList) a.set(9, "HELLO");
         System.out.println(a);
