@@ -176,7 +176,14 @@ public class ImmutableLinkedList implements ImmutableList{
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        Object[] n = new Object[listLength];
+        int i = 0;
+        while (curPos != listLength && current.getNext() != null) {
+            n[i] = current.getData();
+            current = current.getNext();
+            ++i;
+        }
+        return n;
     }
 
     @Override
