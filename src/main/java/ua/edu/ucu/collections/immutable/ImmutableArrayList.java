@@ -55,7 +55,7 @@ public class ImmutableArrayList implements ImmutableList{
         System.arraycopy(myList, 0, myNewList.myList, 0, myList.length);
         myNewList.size = size;
         for (int i = 0; i < c.length; ++i) {
-            myNewList.myList[index] = c;
+            myNewList.myList[index] = c[i];
             index++;
             myNewList.size++;
         }

@@ -34,7 +34,7 @@ public class ImmutableArrayListTest {
         a = (ImmutableArrayList) a.add(2);
         Integer[] n = new Integer[]{1, 2};
         a = (ImmutableArrayList) a.addAll(n);
-        assertEquals(a.toString(), "[1, 2, [Ljava.lang.Integer;@2cdf8d8a, [Ljava.lang.Integer;@2cdf8d8a, null, null, null, null, null, null]");
+        assertEquals(a.toString(), "[1, 2, 1, 2, null, null, null, null, null, null]");
 
     }
 
@@ -45,7 +45,7 @@ public class ImmutableArrayListTest {
         a = (ImmutableArrayList) a.add(2);
         Integer[] n = new Integer[]{1, 2};
         a = (ImmutableArrayList) a.addAll(4, n);
-        assertEquals(a.toString(), "[1, 2, null, null, [Ljava.lang.Integer;@2cdf8d8a, [Ljava.lang.Integer;@2cdf8d8a, null, null, null, null]");
+        assertEquals(a.toString(), "[1, 2, null, null, 1, 2, null, null, null, null]");
 
     }
 
